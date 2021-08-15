@@ -1,46 +1,25 @@
-[org 0x7c00]
+extern print
+extern print_nl
 
-mov bp, 0x8000			 ; this is an address far away from 0x7c00 so that we don't get overwritten
-mov sp, bp				 ; if the stack is empty then sp points to bp
+[org 0x7c00] ; tell the assembler that our offset is bootsector code
 
-mov ah, 0x0e			 ; tty mode
+; The main routine makes sure the parameters are ready and then calls the function
+mov bx, start
+call print
 
-mov al, 'H'
-int 0x10
-mov al, 'e'
-int 0x10
-mov al, 'l'
-int 0x10
-int 0x10                 ;'l' is still on al, remember?
-mov al, 'o'
-int 0x10
-mov al, ' '
-int 0x10
-mov al, 'W'
-int 0x10
-mov al, 'o'
-int 0x10
-mov al, 'r'
-int 0x10
-mov al, 'l'
-int 0x10
-mov al, 'd'
-int 0x10
-mov al, '!'
-int 0x10
+call print_nl
+
+; that's it! we can hang now
+jmp $
+
+; remember to include subroutines below the hang
+%include "print.asm"
 
 
-helloWorld:
-	db "Hello, World!", 0
+; data
+start:
+    db 'BananaOS Starting...', 0
 
-mov bx, helloWorld
-
-printString:
-	  
-
-jmp $                    ; jump to current address = infinite loop
-
-times 510 - ($-$$) db 0  ; padding and magic number
-dw 0xaa55 
-
-
+; padding and magic number
+times 510-($-$$) db 0
+dw 0xaa55
