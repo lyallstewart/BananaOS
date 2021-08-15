@@ -1,25 +1,44 @@
 extern print
 extern print_nl
+extern print_hex
+extern load_disk
 
-[org 0x7c00] ; tell the assembler that our offset is bootsector code
+[org 0x7c00]
+    mov bp, 0x8000 ; set the stack safely away from us
+    mov sp, bp
 
-; The main routine makes sure the parameters are ready and then calls the function
-mov bx, start
-call print
+    mov bx, start
+    call print
+    call print_nl
 
-call print_nl
+	mov bx, 0x9000 ; es:bx = 0x0000:0x9000 = 0x09000
+    mov dh, 2 ; read 2 sectors
 
-; that's it! we can hang now
-jmp $
+    call load_disk
 
-; remember to include subroutines below the hang
-%include "print.asm"
+    mov dx, [0x9000] ; retrieve the first loaded word, 0xdada
+    call print_hex
+
+    call print_nl
+
+    mov dx, [0x9000 + 512] ; first word from second loaded sector, 0xface
+    call print_hex
+
+
+    jmp $
+
+    %include "print.asm"
+    %include "disk.asm"
+    %include "print_hex.asm"
 
 
 ; data
 start:
     db 'BananaOS Starting...', 0
 
-; padding and magic number
+
 times 510-($-$$) db 0
 dw 0xaa55
+
+times 256 dw 0xdada ; sector 2 = 512 bytes
+times 256 dw 0xface ; sector 3 = 512 bytes

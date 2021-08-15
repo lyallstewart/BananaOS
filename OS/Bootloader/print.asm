@@ -1,7 +1,7 @@
 print:
     pusha
     startloop: 
-        mov al, [bx] ; 'bx' is the base address for the string
+        mov al, [bx]        ; 'bx' is the base address for the string
         cmp al, 0 
         je end_print    
 
@@ -14,8 +14,6 @@ print:
 end_print:
     popa
     ret
-
-
 
 print_nl:
     pusha
