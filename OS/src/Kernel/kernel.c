@@ -1,15 +1,18 @@
+#include <stdlib.h>
 #include "utils.h"
 #include "print.h"
 
 #define WELCOME "Welcome to BananaOS"
+void *malloc(size_t size) {return malloc(size);}
 
 void thisIsNotNeededButItBreaksIfWeDeleteIt() {}
 
 void main() {
     const char welcome[] = "Welcome to BananaOS";
     print(welcome);
-    const char longstr[] = "abcdefghijklmnopqrstuvqxyz.,!!!!!!!!?,.<>(){}[]eeeeeeeeeeeeeeee";
-    print(longstr);
     const char kbd[] = "Now loading: keyboard driver";
-    print(kbd);
+
+    const char blah[] = "abcdefghijklmnopqrstuvqxyz.,!!!!!!!!?,.<>(){}[]eeeeeeeeeeeeeeeef";
+    print(blah);
+    //print(kbd);
 }

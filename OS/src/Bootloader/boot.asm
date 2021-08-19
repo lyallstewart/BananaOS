@@ -41,12 +41,12 @@ call switch_to_pm
       
 jmp $                               ; Never executed
 
-%include "OS/src/Bootloader/disk.asm"
-%include "OS/src/Bootloader/print.asm"
-%include "OS/src/Bootloader/print_hex.asm"
-%include "OS/src/Bootloader/x86/x86_gdt.asm"
-%include "OS/src/Bootloader/x86/x86_print.asm"
-%include "OS/src/Bootloader/x86/x86_switch.asm"
+%include "src/Bootloader/disk.asm"
+%include "src/Bootloader/print.asm"
+%include "src/Bootloader/print_hex.asm"
+%include "src/Bootloader/x86/x86_gdt.asm"
+%include "src/Bootloader/x86/x86_print.asm"
+%include "src/Bootloader/x86/x86_switch.asm"
 [bits 16]
 load_kernel:
     mov bx, MSG_LOAD_KERNEL
@@ -69,7 +69,7 @@ BEGIN_PM:                           ; after the switch we will get hre
 ; data
 MSG_REAL_MODE: db "Started in 16-bit", 0
 MSG_LOAD_KERNEL: db "Loading Kernel", 0
-MSG_STARTUP: db "Loading BananaOS", 0
+MSG_STARTUP: db "Loading BananaOZ", 0
 BOOT_DRIVE: db 0
 
 times 510-($-$$) db 0
