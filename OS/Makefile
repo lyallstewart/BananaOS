@@ -7,11 +7,11 @@ OBJ = ${C_SOURCES:.c=.o}
 CC = /usr/bin/gcc
 GDB = /usr/bin/gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g -std=c99 -m32 -fno-pie
+CFLAGS = -g -std=c99 -m32 -fno-pie -fvar-tracking
 
 # First rule is run by default
 bin/os.bin: bin/boot.bin bin/kernel.bin
-	cat $^ > os.bin
+	cat $^ > bin/os.bin
 
 # '--oformat binary' deletes all symbols as a collateral, so we don't need
 # to 'strip' them manually on this case
@@ -23,12 +23,12 @@ bin/kernel.elf: bin/kernel_entry.o bin/kernel.o
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ 
 
 run: clean bin/os.bin
-	qemu-system-x86_64 -fda os.bin
+	qemu-system-x86_64 -fda bin/os.bin
 
 # Open the connection to qemu and load our kernel-object file with symbols
 debug: clean bin/os.bin bin/kernel.elf
-	qemu-system-x86_64 -s -fda os.bin &
-	${GDB} -ex "target remote localhost:1234" -ex "symbol-file bin/kernel.elf"
+	qemu-system-x86_64 -s -fda bin/os.bin -S &
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file bin/kernel.elf" -ex "b main" -ex "c"
 
 # Generic rules for wildcards
 # To make an object, always compile from its .c
@@ -47,4 +47,4 @@ bin/%.bin: src/Bootloader/x86/%.asm
 
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf bin/*.o bin/*.bin
+	rm -rf bin/*.o bin/*.bin bin/*.elf
