@@ -69,7 +69,7 @@ BEGIN_PM:                           ; after the switch we will get hre
 ; data
 MSG_REAL_MODE: db "Started in 16-bit", 0
 MSG_LOAD_KERNEL: db "Loading Kernel", 0
-MSG_STARTUP: db "Loading BananaOZ", 0
+MSG_STARTUP: db "System Starting......", 0
 BOOT_DRIVE: db 0
 
 times 510-($-$$) db 0

@@ -35,8 +35,14 @@ debug: clean bin/os.bin bin/kernel.elf
 bin/%.o: src/Kernel/%.c 
 	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
 
+bin/%.o: src/cpu/%.c 
+	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
+
 bin/%.o: src/Kernel/%.asm
 	nasm $< -f elf -o $@
+
+bin/%.bin: src/cpu/%.asm
+	nasm $< -f bin -o $@
 
 bin/%.bin: src/Bootloader/%.asm
 	nasm $< -f bin -o $@

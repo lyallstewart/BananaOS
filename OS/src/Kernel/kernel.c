@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <unistd.h>
 #include "utils.h"
 #include "print.h"
 /*
@@ -14,14 +15,34 @@ please use print_nl(1) over print("") for printing a newline.
  print("") just calls print_nl(1) but after a bunch of other code.
 */
 
-#define WELCOME "Welcome to BananaOS"
 void *malloc(size_t size) {return malloc(size);}
 
-void thisIsNotNeededButItBreaksIfWeDeleteIt() {}
 void main() {
     
-    print("Welcome to BananaOS");
-    print("Type a command, or help for more help ,or quit to shutdown the computer. This text is temporary, just checking wrapping stuff.");
+    
+    print_nl(2);
+    print("  ____                                 ____   _____         ");
+    print(" |  _ \\                               / __ \\ / ____|        ");
+    print(" | |_) | __ _ _ __   __ _ _ __   __ _| |  | | (___          ");
+    print(" |  _ < / _` | '_ \\ / _` | '_ \\ / _` | |  | |\\___ \\         ");
+    print(" | |_) | (_| | | | | (_| | | | | (_| | |__| |____) |  _ _ _ ");
+    print(" |____/ \\__,_|_| |_|\\__,_|_| |_|\\__,_|\\____/|_____/  (_|_|_)");
 
-    print("BananaOS veresion alpha v0.0.1");
+    print_nl(2);
+    print("Welcome to BananaOS (v0.0.1a)");
+    print_nl(1);
+
+    print("[1/2] Kernal Files Loading...");
+    print_color("[1/2] Kernal Files Loaded", 0x02);
+    print_nl(1);
+
+    print("[2/2] Loading CPU interrupts");
+
+    int i;
+    for (i = 0; i < 15; i++)
+    {   
+        print("123456789abcdefghijklmnop" + i);
+    }
+    
+    
 }
