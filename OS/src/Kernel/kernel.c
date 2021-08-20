@@ -18,7 +18,7 @@ please use print_nl(1) over print("") for printing a newline.
 void *malloc(size_t size) {return malloc(size);}
 
 void main() {
-    
+    print_nuke();//allows scrolling to work.
     
     print_nl(2);
     print("  ____                                 ____   _____         ");

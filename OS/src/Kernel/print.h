@@ -102,7 +102,7 @@ void shift_screen() {
   video_memory = video_memory + 3840;
   int color = get_fill_color(-1);
   int i = 0;
-  while (i<25) {
+  while (i<80) {
     *video_memory = ' ';
     ++video_memory;
     *video_memory = color;
