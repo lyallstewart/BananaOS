@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 long double floor(long double x)
 {
     long double xcopy=x<0?x-1:x;
@@ -37,3 +40,5 @@ void int_to_ascii(int n, char str[]) {
 
     /* TODO: implement "reverse" */
 }
+
+#endif
