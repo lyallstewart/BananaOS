@@ -41,12 +41,12 @@ call switch_to_pm
       
 jmp $                               ; Never executed
 
-%include "src/Bootloader/disk.asm"
-%include "src/Bootloader/print.asm"
-%include "src/Bootloader/print_hex.asm"
-%include "src/Bootloader/x86/x86_gdt.asm"
-%include "src/Bootloader/x86/x86_print.asm"
-%include "src/Bootloader/x86/x86_switch.asm"
+%include "Bootloader/disk.asm"
+%include "Bootloader/print.asm"
+%include "Bootloader/print_hex.asm"
+%include "Bootloader/x86/x86_gdt.asm"
+%include "Bootloader/x86/x86_print.asm"
+%include "Bootloader/x86/x86_switch.asm"
 [bits 16]
 load_kernel:
     mov bx, MSG_LOAD_KERNEL

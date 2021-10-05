@@ -3,8 +3,6 @@
 
 #include "isr.h"
 #include "idt.h"
-#include "../Kernel/print.h"
-#include "../Kernel/utils.h"
 
 extern void isr0();
 extern void isr1();

@@ -4,7 +4,8 @@ int get_fill_color(int color);
 
 void print(const char *toPrint) {
   char* video_memory = (char*) 0xb8000;
-  int lines = print_nl(0);
+  int lines;
+  lines = print_nl(1);
   lines = lines * 160;
   video_memory = video_memory + lines;
   int i = 0;
@@ -20,15 +21,32 @@ void print(const char *toPrint) {
     ++video_memory;
     ++toPrint;
   }
-  i = floor(i/80);
-  i++;
+  i = (int)(i/80);
+  print_nl(1);
   print_nl(i);
   
 }
-
+void print_col_at(const char *toPrint, int color, int x, int y) {
+  char* video_memory = (char*) 0xb8000;
+  video_memory = video_memory + 2 * (x + (y * 80));
+  int i = 0;
+  while (*toPrint!=0) {
+    ++i;
+    *video_memory = *toPrint;//*t;
+    ++video_memory;
+    *video_memory = color;
+    ++video_memory;
+    ++toPrint;
+  }
+  i = (int)(i/80);
+  print_nl(1);
+  print_nl(i);
+  
+}
 void print_no_nl(const char *toPrint) {
   char* video_memory = (char*) 0xb8000;
-  int lines = print_nl(0);
+  int lines;
+  lines = print_nl(0);
   lines = lines * 160;
   video_memory = video_memory + lines;
   int i = 0;
@@ -44,13 +62,14 @@ void print_no_nl(const char *toPrint) {
     ++video_memory;
     ++toPrint;
   }
-  i = floor(i/80);
+  i = (int)(i/80);
   print_nl(i);
 }
 
 void print_color(const char *toPrint, char color) {
   char* video_memory = (char*) 0xb8000;
-    int lines = print_nl(0);
+    int lines;
+    lines = print_nl(0);
     lines = lines * 160;
     video_memory = video_memory + lines;
     int i = 0;
@@ -67,7 +86,7 @@ void print_color(const char *toPrint, char color) {
       ++video_memory;
       ++toPrint;
     }
-    i = floor(i/80);
+    i = (int)(i/80);
     i++;
     print_nl(i);
 }
@@ -120,11 +139,11 @@ int get_fill_color(int color) {
   }
 }
 int print_nl(int increment) {
-  static int line = 0;
-  line = line + increment;
-  while (line>24) {
-    line = line - 1;
+  static int e;
+  e += increment;
+  while (e>24) {
+    e--;
     shift_screen();
   }
-  return line;
+  return e;
 }
